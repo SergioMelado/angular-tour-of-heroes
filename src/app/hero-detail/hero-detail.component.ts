@@ -5,8 +5,6 @@ import {Hero} from '../hero';
 
 @Component({
   selector: 'app-hero-detail',
-  standalone: true,
-  imports: [FormsModule, NgIf, UpperCasePipe],
   templateUrl: './hero-detail.component.html',
   styleUrl: './hero-detail.component.css'
 })

@@ -10,12 +10,13 @@ import { MessagesComponent } from './messages/messages.component';
   declarations: [
     AppComponent,
     HeroesComponent,
-    MessagesComponent
+    MessagesComponent,
+    HeroDetailComponent
   ],
   imports: [
     BrowserModule,
-    FormsModule,
-    HeroDetailComponent,
+    FormsModule
+    
   ],
   providers: [
     // no need to place any providers due to the `providedIn` flag...
