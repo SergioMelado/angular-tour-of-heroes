@@ -11,7 +11,7 @@ import { MessageService } from './message.service';
 @Injectable({ providedIn: 'root' })
 export class HeroService {
 
-  //private heroesUrl = 'api/heroes';  // URL to web api
+  //private heroesUrl = 'api/heroes';  // URL to web phantom api
   private heroesUrlApiRest = "http://localhost:8080/api/heroes";
 
   httpOptions = {
@@ -32,7 +32,7 @@ export class HeroService {
   }
 
   /** GET hero by id. Return `undefined` when id not found */
-  getHeroNo404<Data>(id: number): Observable<Hero> {
+  getHeroNo404(id: number): Observable<Hero> {
     const url = `${this.heroesUrlApiRest}/?id=${id}`;
     return this.http.get<Hero[]>(url)
       .pipe(

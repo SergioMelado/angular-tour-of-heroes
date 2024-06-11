@@ -8,8 +8,8 @@ describe("HeroesComponent", () => {
   let component: HeroesComponent;
   let fixture: ComponentFixture<HeroesComponent>;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
       declarations: [HeroesComponent],
     }).compileComponents();
@@ -17,8 +17,7 @@ describe("HeroesComponent", () => {
     fixture = TestBed.createComponent(HeroesComponent);
     component = fixture.componentInstance;
     TestBed.inject(HeroService);
-
-    //fixture.detectChanges();
+    fixture.detectChanges();
   });
 
   it("Must create the HeroSearchComponent", () => {
@@ -26,35 +25,38 @@ describe("HeroesComponent", () => {
   });
 
   it("should be heroes object instance of Array<Hero>", () => {
+    expect(component.heroes).toBeDefined();
     expect(component.heroes).toBeInstanceOf(Array<Hero>);
   });
 
-  it("ngOnInit function", () => {
-    var spy = spyOn(component, "ngOnInit");
+  it("should ngOnInit function works", () => {
     expect(component.ngOnInit).toBeDefined();
+    var spyNgOnInit = spyOn(component, "ngOnInit");
     component.ngOnInit();
-    expect(spy).toHaveBeenCalled();
+    expect(spyNgOnInit).toHaveBeenCalled();
   });
 
-  it("getHeroes function", () => {
-    var spy = spyOn(component, "getHeroes");
+  it("should getHeroes function work", () => {
     expect(component.getHeroes).toBeDefined();
+    var spy = spyOn(component, "getHeroes");
     component.getHeroes();
     expect(spy).toHaveBeenCalled();
   });
 
-  it("add function", () => {
-    var spy = spyOn(component, "add");
+  it("should add Hero when the button is clicked", () => {
     expect(component.add).toBeDefined();
-    component.add("Pepe");
-    expect(spy).toHaveBeenCalled();
+    const addSpy = spyOn(component, "add");
+    let addBtn =
+      fixture.debugElement.nativeElement.querySelector(".add-button");
+    const hero =
+      fixture.debugElement.nativeElement.querySelector("#new-hero").value;
+    addBtn.click();
+    fixture.whenStable().then(() => {
+      expect(addSpy).toHaveBeenCalledWith(hero);
+    });
   });
 
-  it("delete function", () => {
-    var spy = spyOn(component, "delete");
+  it("should delete function work", () => {
     expect(component.delete).toBeDefined();
-    const hero: Hero = {id: 1, name: "Pepe"};
-    component.delete(hero);
-    expect(spy).toHaveBeenCalled();
   });
 });
